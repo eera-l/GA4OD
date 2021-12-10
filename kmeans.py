@@ -96,7 +96,7 @@ class KMeansClusterer:
 
     def initialize_centroids(self) -> np.ndarray:
         indexes = np.arange(self.dataset.shape[0])
-        np.random.seed(12)
+        np.random.seed(5)
         centroids = np.random.choice(indexes, size=self.k, replace=False)
         return centroids
 
@@ -209,7 +209,8 @@ class KMeansClusterer:
             clusters = np.argmin(distances, axis=1)
 
             self.plot_data(clusters)
-            self.calc_in_cluster_distance(clusters)
+            k_distances, idx_k_distances = self.calc_in_cluster_distance(clusters)
+            self.find_new_centroids(k_distances, idx_k_distances)
 
             if np.array_equal(old_centroids, self.centroids):
                 no_convergence = False
