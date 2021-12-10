@@ -162,26 +162,20 @@ class KMeansClusterer:
     def plot_two_solutions(self, clusters: np.ndarray, swapped_clusters: np.ndarray) -> None:
         fig = plt.figure()
         ax1 = fig.add_subplot(121)
+        ax2 = fig.add_subplot(122)
 
         if self.dataset_type == 'stars':
             ax1.scatter(self.dataset['log.Te'], self.dataset['log.light'], c=clusters)
             ax1.set_xlabel('Log of temperature')
             ax1.set_ylabel('Log of light')
-        elif self.dataset_type == 'animals':
-            ax1.scatter(self.dataset['Body Weight'], self.dataset['Brain Weight'], c=clusters)
-            ax1.set_xlabel('Body weight')
-            ax1.set_ylabel('Brain weight')
-        else:
-            print('This dataset has more than 3 dimensions and plotting is not supported.')
-
-        ax2 = fig.add_subplot(122)
-
-        if self.dataset_type == 'stars':
             ax2.scatter(self.dataset['log.Te'], self.dataset['log.light'], c=swapped_clusters)
             ax2.set_xlabel('Log of temperature')
             ax2.set_ylabel('Log of light')
             plt.show()
         elif self.dataset_type == 'animals':
+            ax1.scatter(self.dataset['Body Weight'], self.dataset['Brain Weight'], c=clusters)
+            ax1.set_xlabel('Body weight')
+            ax1.set_ylabel('Brain weight')
             ax2.scatter(self.dataset['Body Weight'], self.dataset['Brain Weight'], c=swapped_clusters)
             ax2.set_xlabel('Body weight')
             ax2.set_ylabel('Brain weight')
